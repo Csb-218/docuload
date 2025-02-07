@@ -109,4 +109,16 @@ const deleteFolder = async (req, res) => {
     }
 }
 
-module.exports = { createFolder, updateFolder, deleteFolder}
+const getAllFolders = async (req, res) => {
+    try {
+        const folders = await folderModel.findAll({})
+        return res.status(200).json(folders)
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ error: err.message })
+    }
+
+}
+
+
+module.exports = { createFolder, updateFolder, deleteFolder , getAllFolders}
