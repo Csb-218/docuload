@@ -1,12 +1,14 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('files', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false,
+        unique: true
       },
       folderId: {
         type: Sequelize.UUID,
@@ -19,10 +21,17 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false
       },
+      fileUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: true
       },
       type: {
         type: Sequelize.STRING,
@@ -32,14 +41,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      uploadedAt: {
+      createdAt: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
         defaultValue: Sequelize.NOW
       }
     });
   },
 
-  down: async (queryInterface) => {
+  async down(queryInterface) {
     await queryInterface.dropTable('files');
   }
 };
