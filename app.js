@@ -23,9 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/folders', folderRouter);
-app.use('/files',fileRouter)
+app.use('/api/users', usersRouter);
+app.use('/api/folders', folderRouter);
+app.use('/api/files',fileRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
