@@ -15,8 +15,6 @@ router.put('/update/:folderId', updateFolder)
 
 router.delete('/delete/:folderId', deleteFolder)
 
-
-
 // File routes
 
 router.post('/:folderId/files',function(req,res,next){

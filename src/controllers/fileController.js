@@ -4,7 +4,6 @@ const { folder: folderModel, file: fileModel } = sequelize.models
 const { cloudUpload } = require("../service/fileService")
 const { Op } = require("sequelize")
 
-
 const uploadFileToCloud = async (req, res) => {
 
     try {
@@ -162,21 +161,33 @@ const getAllFilesByFolder = async (req, res) => {
 }
 
 const getFilesByType = async (req, res) => {
+
     try {
         const { type } = req.query
-        
 
-        const files = await fileModel.findAll({
-            where: {
-                type: {
-                    [Op.like]: `%${type}%`
+        let files;
+
+        if (!type) {
+
+            files = await fileModel.findAll({})
+
+        } else {
+            files = await fileModel.findAll({
+                where: {
+                    type: {
+                        [Op.like]: `%${type}%`
+                    }
                 }
-            }
+            })
+        }
+
+        if (files.length === 0) return res.status(404).send("No files found")
+
+        return res.status(200).json({
+            files,
+            total_results: files.length
+
         })
-
-        if(files.length === 0) return res.status(404).send("No files found")
-
-        return res.status(200).json(files)
 
     } catch (err) {
         console.error(err)
@@ -184,4 +195,4 @@ const getFilesByType = async (req, res) => {
     }
 }
 
-module.exports = { uploadFileToCloud, updateFileDescription, deleteFile, getAllFilesByFolder , getFilesByType}  //exporting the functions to be used in other files  //export
+module.exports = { uploadFileToCloud, updateFileDescription, deleteFile, getAllFilesByFolder, getFilesByType }  //exporting the functions to be used in other files  //export
