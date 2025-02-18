@@ -20,7 +20,7 @@ const uploadFileToCloud = async (req, res) => {
 
         //check file not empty
         if (!req.files) return res.status(400).json({ error: 'File not present in request body.' })
-        if (Array.isArray(req.files) && req.files.length === 0) return res.status(400).json({ error: 'No file was uploadedcsb.' })
+        if (Array.isArray(req.files) && req.files.length === 0) return res.status(400).json({ error: 'No file was uploaded.' })
 
         // file 
         const file = req.files[0]
@@ -117,7 +117,7 @@ const deleteFile = async (req, res) => {
         // delete the file
         await file.destroy()
 
-        return res.status(200).json({ "message": "File successfully deleted" })
+        return res.status(204).send()
 
     } catch (err) {
         console.error(err)
