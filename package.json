@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "test":"jest"
   },
   "dependencies": {
     "cloudinary": "^2.5.1",
@@ -22,7 +23,9 @@
     "uuid": "^11.0.5"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
   }
 }
