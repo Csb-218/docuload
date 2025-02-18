@@ -112,8 +112,7 @@ const deleteFolder = async (req, res) => {
 const getAllFolders = async (req, res) => {
     try {
         const folders = await folderModel.findAll({})
-
-        if (folders.length===0  ) return res.status(404).json({message:"no folders found"})
+        if(folders.length===0) return res.status(404).json({ error:"no folders found"})
         return res.status(200).json(folders)
 
 
