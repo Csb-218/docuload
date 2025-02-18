@@ -101,7 +101,7 @@ const deleteFolder = async (req, res) => {
             }
         })
 
-        return res.status(200).json({ message: 'Folder deleted successfully' })
+        return res.status(204).send()
 
     } catch (error) {
         console.log(error)
@@ -112,7 +112,11 @@ const deleteFolder = async (req, res) => {
 const getAllFolders = async (req, res) => {
     try {
         const folders = await folderModel.findAll({})
+
+        if (folders.length===0  ) return res.status(404).json({message:"no folders found"})
         return res.status(200).json(folders)
+
+
     }catch(err){
         console.log(err)
         return res.status(500).json({ error: err.message })
